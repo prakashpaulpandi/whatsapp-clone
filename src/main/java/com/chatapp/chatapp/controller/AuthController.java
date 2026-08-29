@@ -1,5 +1,6 @@
 package com.chatapp.chatapp.controller;
 
+import com.chatapp.chatapp.config.JwtUtil;
 import com.chatapp.chatapp.model.User;
 import com.chatapp.chatapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     // Signup endpoint
     @PostMapping("/signup")
@@ -49,8 +53,10 @@ public class AuthController {
         }
 
         User user = userOpt.get();
+        String token = jwtUtil.generateToken(user.getEmail());
 
         return ResponseEntity.ok(Map.of(
+            "token", token,
             "id", user.getId(),
             "name", user.getName(),
             "email", user.getEmail()
