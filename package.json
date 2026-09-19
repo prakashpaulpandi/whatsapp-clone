@@ -1,0 +1,11 @@
+{
+  "name": "chatsphere-monorepo",
+  "version": "1.0.0",
+  "description": "Full-Stack Real-Time Chat Platform (WhatsApp Clone)",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "test:backend": "cd backend && .\\mvnw.cmd test",
+    "package:zip": "node scripts/package-zip.js"
+  }
+}
