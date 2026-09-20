@@ -1,0 +1,29 @@
+# Maven Build & Bytecode
+**/target/
+**/*.class
+
+# Node / Frontend Artifacts
+**/node_modules/
+**/dist/
+frontend/dist/
+
+# Environment and Secrets
+**/.env
+**/.env.local
+**/.env.*.local
+*.log
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.DS_Store
+Thumbs.db
+
+# Packaging artifacts
+*.zip
