@@ -412,10 +412,14 @@ export const ChatApp = () => {
           <>
             {/* Active Chat Header */}
             <div className="px-4 py-3 bg-slate-800/90 border-b border-slate-700/60 flex items-center justify-between shrink-0">
-              <div className="flex items-center gap-3 min-w-0">
+              <div className="flex items-center gap-2.5 min-w-0">
                 <button
-                  onClick={() => setShowSidebarMobile(true)}
-                  className="md:hidden p-1.5 -ml-1 text-slate-400 hover:text-slate-100 rounded-lg"
+                  onClick={() => {
+                    setActiveConversation(null);
+                    setShowSidebarMobile(true);
+                  }}
+                  className="p-1.5 -ml-1 text-slate-400 hover:text-slate-100 hover:bg-slate-700/60 rounded-xl transition flex items-center justify-center"
+                  title="Back to Chats"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>

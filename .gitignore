@@ -12,6 +12,9 @@ frontend/dist/
 **/.env.local
 **/.env.*.local
 *.log
+backend/data/
+*.mv.db
+*.trace.db
 
 # IDE & Editor files
 .idea/
