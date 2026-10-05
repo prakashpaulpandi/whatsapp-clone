@@ -161,14 +161,14 @@ export const ChatApp = () => {
     return unsubscribe;
   }, [activeConversation, user?.id, addReadListener]);
 
-  const handleSendMessage = async (content) => {
+  const handleSendMessage = async (content, messageType = 'TEXT') => {
     if (!activeConversation) return;
 
     try {
       await api.post('/messages/send', {
         conversationId: activeConversation.id,
         content,
-        messageType: 'TEXT',
+        messageType: messageType || 'TEXT',
       });
     } catch (err) {
       console.error('Failed to send message', err);

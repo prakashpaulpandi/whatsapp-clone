@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .requestMatchers("/ws/**", "/ws-raw/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/api/health").permitAll()
+                .requestMatchers("/api/files/**").permitAll()   // serve uploaded files publicly
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frame -> frame.disable()))

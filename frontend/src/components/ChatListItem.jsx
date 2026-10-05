@@ -1,7 +1,63 @@
 import React from 'react';
 import Avatar from './Avatar';
 import { format, isToday, isYesterday } from 'date-fns';
-import { Check, CheckCheck } from 'lucide-react';
+import { Check, CheckCheck, Camera, FileText, Video, Music } from 'lucide-react';
+
+const renderLastMessageContent = (lastMsg) => {
+  if (!lastMsg || !lastMsg.content) return '';
+  const lines = lastMsg.content.split('\n');
+  const firstLine = lines[0].trim();
+  const caption = lines.slice(1).join(' ').trim();
+  const lower = firstLine.toLowerCase();
+
+  const isImageExt = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.bmp', '.svg'].some((ext) => lower.endsWith(ext));
+  const isVideoExt = ['.mp4', '.webm', '.mov', '.avi'].some((ext) => lower.endsWith(ext));
+  const isAudioExt = ['.mp3', '.wav', '.ogg', '.m4a'].some((ext) => lower.endsWith(ext));
+
+  if (lastMsg.messageType === 'IMAGE' || (lower.startsWith('/api/files/') && isImageExt)) {
+    return (
+      <span className="flex items-center gap-1 text-slate-300">
+        <Camera className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+        <span className="truncate">{caption || 'Photo'}</span>
+      </span>
+    );
+  }
+
+  if (isVideoExt) {
+    return (
+      <span className="flex items-center gap-1 text-slate-300">
+        <Video className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+        <span className="truncate">{caption || 'Video'}</span>
+      </span>
+    );
+  }
+
+  if (isAudioExt) {
+    return (
+      <span className="flex items-center gap-1 text-slate-300">
+        <Music className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+        <span className="truncate">{caption || 'Audio'}</span>
+      </span>
+    );
+  }
+
+  if (lastMsg.messageType === 'FILE' || lower.startsWith('/api/files/')) {
+    let name = 'Document';
+    if (firstLine.includes('|')) {
+      name = firstLine.split('|')[1] || 'Document';
+    } else if (lower.endsWith('.pdf')) {
+      name = 'PDF Document';
+    }
+    return (
+      <span className="flex items-center gap-1 text-slate-300">
+        <FileText className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+        <span className="truncate">{caption || name}</span>
+      </span>
+    );
+  }
+
+  return <span className="truncate">{lastMsg.content}</span>;
+};
 
 const formatChatTime = (timestamp) => {
   if (!timestamp) return '';
@@ -81,7 +137,7 @@ export const ChatListItem = ({ conversation, active, currentUserId, onClick, isO
                     {lastMsg.sender.name?.split(' ')[0]}:
                   </span>
                 )}
-                <span className="truncate">{lastMsg.content}</span>
+                {renderLastMessageContent(lastMsg)}
               </>
             ) : (
               <span className="italic text-slate-500">No messages yet</span>

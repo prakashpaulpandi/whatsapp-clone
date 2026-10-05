@@ -13,6 +13,8 @@ frontend/dist/
 **/.env.*.local
 *.log
 backend/data/
+backend/uploads/*
+!backend/uploads/.gitkeep
 *.mv.db
 *.trace.db
 
