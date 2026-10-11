@@ -9,7 +9,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('chatsphere_token');
+    const token = sessionStorage.getItem('chatsphere_token') || localStorage.getItem('chatsphere_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -22,8 +22,10 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      const isAuthUrl = error.config.url && (error.config.url.includes('/auth/login') || error.config.url.includes('/auth/signup'));
+      const isAuthUrl = error.config.url && (error.config.url.includes('/auth/login') || error.config.url.includes('/auth/signup') || error.config.url.includes('/auth/demo'));
       if (!isAuthUrl) {
+        sessionStorage.removeItem('chatsphere_token');
+        sessionStorage.removeItem('chatsphere_user');
         localStorage.removeItem('chatsphere_token');
         localStorage.removeItem('chatsphere_user');
         window.location.href = '/login';
