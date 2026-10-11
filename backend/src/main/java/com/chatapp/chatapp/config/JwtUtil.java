@@ -35,6 +35,21 @@ public class JwtUtil {
                 .compact();
     }
 
+    /**
+     * Issues a short-lived demo token (2 hours) used by the /api/auth/demo endpoint.
+     * Keeps demo account credentials completely server-side.
+     */
+    public String generateDemoToken(String email) {
+        long demoExpiry = 1000L * 60 * 60 * 2; // 2 hours
+        return Jwts.builder()
+                .subject(email)
+                .claim("demo", true)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + demoExpiry))
+                .signWith(secretKey)
+                .compact();
+    }
+
     public String extractEmail(String token) {
         return getClaims(token).getSubject();
     }
