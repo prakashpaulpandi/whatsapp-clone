@@ -16,8 +16,8 @@
 
 | Component | Platform | Live URL | Status |
 | :--- | :--- | :--- | :--- |
-| **Frontend Web App** | Vercel / Netlify | `https://chatsphere-live.vercel.app` *(replace with your deployed URL)* | 🟢 Active |
-| **Backend REST + WS** | Railway / Render | `https://chatsphere-api.up.railway.app` *(replace with your deployed URL)* | 🟢 Active |
+| **Frontend Web App** | Vercel | [https://chatsphere-messenger.vercel.app](https://chatsphere-messenger.vercel.app) | 🟢 Live |
+| **Backend REST + WS** | Railway | [https://whatsapp-clone-production-a74b.up.railway.app](https://whatsapp-clone-production-a74b.up.railway.app) | 🟢 Live |
 
 ---
 
