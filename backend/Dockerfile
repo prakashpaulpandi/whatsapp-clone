@@ -20,5 +20,6 @@ COPY --from=build /app/target/*.jar app.jar
 ENV PORT=8080
 EXPOSE 8080
 
-# Run the jar
-ENTRYPOINT ["java", "-Dserver.port=${PORT}", "-jar", "app.jar"]
+# Run the jar with PORT passed by Render
+CMD ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar app.jar"]
+
