@@ -16,7 +16,7 @@ export const WebSocketProvider = ({ children }) => {
   const readListenersRef = useRef(new Set());
 
   const getWsUrl = () => {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://whatsapp-backend-k601.onrender.com/api';
     if (apiUrl && apiUrl.startsWith('http')) {
       const base = apiUrl.replace('/api', '');
       return `${base}/ws`;
