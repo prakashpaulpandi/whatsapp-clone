@@ -16,10 +16,10 @@ WORKDIR /app
 # Copy the built jar from build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Render exposes the port via the PORT environment variable (defaults to 10000 on Render)
-ENV PORT=10000
-EXPOSE 10000
+# Render routes traffic to port 8080 (or PORT env var)
+ENV PORT=8080
+EXPOSE 8080
 
-# Run the jar with explicit server.port override
-CMD java -Dserver.port=${PORT} -jar app.jar
+# Run the jar with explicit server.port matching PORT
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=$PORT -jar app.jar"]
 
